@@ -1,3 +1,25 @@
+// Welcome screen transition function
+function startExperience() {
+    const welcomeScreen = document.getElementById('welcomeScreen');
+    const mainContent = document.getElementById('mainContent');
+    const bgMusic = document.getElementById('bgMusic');
+
+    // Fade out welcome screen
+    welcomeScreen.classList.add('fade-out');
+
+    // Start music if configured
+    if (config.music.enabled && config.music.autoplay) {
+        bgMusic.play().catch(error => {
+            console.log("Music playback prevented");
+        });
+    }
+
+    // Show main content after fade out
+    setTimeout(() => {
+        mainContent.classList.add('show');
+    }, 1000);
+}
+
 // Initialize configuration
 const config = window.VALENTINE_CONFIG;
 
@@ -60,18 +82,18 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // Set texts from config
     document.getElementById('valentineTitle').textContent = `${config.valentineName}, my love...`;
-    
+
     // Set first question texts
-    document.getElementById('question1Text').textContent = config.questions.first.text;
+    document.getElementById('question1Text').innerHTML = config.questions.first.text;
     document.getElementById('yesBtn1').textContent = config.questions.first.yesBtn;
     document.getElementById('noBtn1').textContent = config.questions.first.noBtn;
     document.getElementById('secretAnswerBtn').textContent = config.questions.first.secretAnswer;
-    
+
     // Set second question texts
     document.getElementById('question2Text').textContent = config.questions.second.text;
     document.getElementById('startText').textContent = config.questions.second.startText;
     document.getElementById('nextBtn').textContent = config.questions.second.nextBtn;
-    
+
     // Set third question texts
     document.getElementById('question3Text').textContent = config.questions.third.text;
     document.getElementById('yesBtn3').textContent = config.questions.third.yesBtn;
@@ -87,7 +109,7 @@ window.addEventListener('DOMContentLoaded', () => {
 // Create floating hearts and bears
 function createFloatingElements() {
     const container = document.querySelector('.floating-elements');
-    
+
     // Create hearts
     config.floatingEmojis.hearts.forEach(heart => {
         const div = document.createElement('div');
@@ -117,7 +139,14 @@ function setRandomPosition(element) {
 // Function to show next question
 function showNextQuestion(questionNumber) {
     document.querySelectorAll('.question-section').forEach(q => q.classList.add('hidden'));
-    document.getElementById(`question${questionNumber}`).classList.remove('hidden');
+
+    // Special handling for love display screen
+    if (questionNumber === 'loveDisplay') {
+        document.getElementById('loveDisplayScreen').classList.remove('hidden');
+        startLoveDisplay();
+    } else {
+        document.getElementById(`question${questionNumber}`).classList.remove('hidden');
+    }
 }
 
 // Function to move the "No" button when clicked
@@ -140,17 +169,30 @@ function setInitialPosition() {
     loveMeter.style.width = '100%';
 }
 
+// Auto-scroll slider into view on mobile when interacting
+loveMeter.addEventListener('touchstart', () => {
+    setTimeout(() => {
+        loveMeter.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 100);
+});
+
+loveMeter.addEventListener('mousedown', () => {
+    setTimeout(() => {
+        loveMeter.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 100);
+});
+
 loveMeter.addEventListener('input', () => {
     const value = parseInt(loveMeter.value);
     loveValue.textContent = value;
-    
+
     if (value > 100) {
         extraLove.classList.remove('hidden');
         const overflowPercentage = (value - 100) / 9900;
         const extraWidth = overflowPercentage * window.innerWidth * 0.8;
         loveMeter.style.width = `calc(100% + ${extraWidth}px)`;
         loveMeter.style.transition = 'width 0.3s';
-        
+
         // Show different messages based on the value
         if (value >= 5000) {
             extraLove.classList.add('super-love');
@@ -178,12 +220,12 @@ function celebrate() {
     document.querySelectorAll('.question-section').forEach(q => q.classList.add('hidden'));
     const celebration = document.getElementById('celebration');
     celebration.classList.remove('hidden');
-    
+
     // Set celebration messages
     document.getElementById('celebrationTitle').textContent = config.celebration.title;
     document.getElementById('celebrationMessage').textContent = config.celebration.message;
     document.getElementById('celebrationEmojis').textContent = config.celebration.emojis;
-    
+
     // Create heart explosion effect
     createHeartExplosion();
 }
@@ -239,4 +281,97 @@ function setupMusicPlayer() {
             musicToggle.textContent = config.music.startText;
         }
     });
+}
+
+// Love Display Screen Functions
+let heartsInterval;
+
+function startLoveDisplay() {
+    // Animate counter from 0 to 9999999+
+    animateCounter();
+
+    // Start hearts explosion
+    heartsInterval = setInterval(createFloatingHeart, 200);
+}
+
+function animateCounter() {
+    const counter = document.getElementById('loveCounter');
+    let count = 0;
+    const target = 9999999;
+    const duration = 3000; // 3 seconds
+    const increment = target / (duration / 16); // 60fps
+
+    const timer = setInterval(() => {
+        count += increment;
+        if (count >= target) {
+            count = target;
+            clearInterval(timer);
+            counter.textContent = count.toLocaleString() + '+';
+        } else {
+            counter.textContent = Math.floor(count).toLocaleString();
+        }
+    }, 16);
+}
+
+function createFloatingHeart() {
+    const container = document.getElementById('heartsContainer');
+    const heart = document.createElement('div');
+    heart.className = 'floating-heart';
+    heart.textContent = config.floatingEmojis.hearts[Math.floor(Math.random() * config.floatingEmojis.hearts.length)];
+
+    // Random starting position
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.setProperty('--heart-drift', (Math.random() - 0.5) * 200 + 'px');
+
+    container.appendChild(heart);
+
+    // Remove heart after animation
+    setTimeout(() => {
+        heart.remove();
+    }, 4000);
+}
+
+// Show sticker popup when No button is clicked
+function showSticker() {
+    const sticker = document.createElement('img');
+    sticker.src = 'images/cheching.jpg';
+    sticker.className = 'popup-sticker';
+
+    // Random position on screen
+    const maxX = window.innerWidth - 200; // 200px for sticker width
+    const maxY = window.innerHeight - 200; // 200px for sticker height
+    const randomX = Math.random() * maxX;
+    const randomY = Math.random() * maxY;
+
+    sticker.style.left = randomX + 'px';
+    sticker.style.top = randomY + 'px';
+
+    document.body.appendChild(sticker);
+
+    // Remove sticker after animation (2 seconds)
+    setTimeout(() => {
+        sticker.remove();
+    }, 2000);
+}
+
+// Move button within Polaroid frame (for No button on final question)
+function moveButton(button) {
+    // Get the Polaroid photo container
+    const container = button.closest('.polaroid-photo');
+    if (!container) return; // Fallback if not in Polaroid
+
+    const containerRect = container.getBoundingClientRect();
+    const buttonRect = button.getBoundingClientRect();
+
+    // Calculate max positions to keep button inside Polaroid frame
+    const maxX = containerRect.width - buttonRect.width - 20; // 20px padding from edge
+    const maxY = containerRect.height - buttonRect.height - 20;
+
+    // Generate random position within bounds
+    const randomX = Math.random() * maxX;
+    const randomY = Math.random() * maxY;
+
+    // Apply new position
+    button.style.left = randomX + 'px';
+    button.style.top = randomY + 'px';
 } 

@@ -14,13 +14,81 @@
     --heart-explosion-size: 1.5;
 }
 
+/* Background Slideshow */
+.slideshow-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.slideshow-background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255, 175, 189, 0.3), rgba(255, 195, 160, 0.3));
+    z-index: 1;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    animation: slideshow 20s infinite;
+}
+
+.slide:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.slide:nth-child(2) {
+    animation-delay: 5s;
+}
+
+.slide:nth-child(3) {
+    animation-delay: 10s;
+}
+
+.slide:nth-child(4) {
+    animation-delay: 15s;
+}
+
+@keyframes slideshow {
+
+    0%,
+    25% {
+        opacity: 0;
+    }
+
+    30%,
+    45% {
+        opacity: 1;
+    }
+
+    50%,
+    100% {
+        opacity: 0;
+    }
+}
+
 body {
     margin: 0;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, var(--background-color-1), var(--background-color-2));
+    position: relative;
     font-family: Arial, sans-serif;
     overflow-x: hidden;
 }
@@ -44,7 +112,8 @@ body {
     z-index: 1;
 }
 
-.heart, .bear {
+.heart,
+.bear {
     position: absolute;
     font-size: 2rem;
     animation: float var(--float-duration) linear infinite;
@@ -54,6 +123,7 @@ body {
     0% {
         transform: translateY(100vh) translateX(0);
     }
+
     100% {
         transform: translateY(-100px) translateX(var(--float-distance));
     }
@@ -232,6 +302,7 @@ body {
     from {
         transform: scale(1);
     }
+
     to {
         transform: scale(1.2);
     }
@@ -247,15 +318,18 @@ body {
     0% {
         transform: scale(0);
     }
+
     50% {
         transform: scale(var(--heart-explosion-size));
     }
+
     100% {
         transform: scale(1);
     }
 }
 
-h1, h2 {
+h1,
+h2 {
     font-family: Arial, sans-serif;
     font-weight: 700;
 }
@@ -289,8 +363,13 @@ h2 {
 }
 
 @keyframes subtle-hint {
-    0% { opacity: 0.2; }
-    100% { opacity: 0.3; }
+    0% {
+        opacity: 0.2;
+    }
+
+    100% {
+        opacity: 0.3;
+    }
 }
 
 .music-controls {
@@ -309,10 +388,607 @@ h2 {
     cursor: pointer;
     font-size: 16px;
     transition: all 0.3s ease;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .music-btn:hover {
     transform: scale(1.05);
     background: var(--secondary-color);
-} 
+}
+
+/* Welcome Screen Styles */
+.welcome-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: opacity 1s ease-out, visibility 1s ease-out;
+}
+
+.welcome-screen.fade-out {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.welcome-content {
+    text-align: center;
+    animation: fadeInUp 1.5s ease-out;
+    z-index: 10;
+    position: relative;
+}
+
+.welcome-title {
+    font-size: 4em;
+    color: white;
+    text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+    margin-bottom: 20px;
+    animation: heartbeat 2s ease-in-out infinite;
+}
+
+.welcome-subtitle {
+    font-size: 1.5em;
+    color: white;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+    margin-bottom: 40px;
+}
+
+.welcome-btn {
+    background: linear-gradient(135deg, #ff6b6b, #ff8787);
+    border: none;
+    padding: 20px 40px;
+    border-radius: 50px;
+    color: white;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+    animation: gentle-pulse 2s ease-in-out infinite;
+}
+
+.welcome-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 12px 30px rgba(255, 107, 107, 0.6);
+}
+
+.main-content {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1s ease-in, visibility 1s ease-in;
+}
+
+.main-content.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes heartbeat {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes gentle-pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.03);
+    }
+}
+
+/* Love Display Screen - Premium Card Design */
+.love-card {
+    max-width: 550px;
+    margin: 40px auto;
+    padding: 8px;
+    background: linear-gradient(135deg, #ffd700, #ffb6c1, #ffd700);
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    animation: fadeInUp 1s ease-out;
+}
+
+.love-card-inner {
+    background: linear-gradient(135deg, #fff8f0, #ffe4e9);
+    border-radius: 15px;
+    padding: 50px 40px;
+    position: relative;
+    border: 2px solid rgba(255, 215, 0, 0.3);
+}
+
+.card-corner {
+    position: absolute;
+    font-size: 2em;
+    opacity: 0.8;
+}
+
+.card-corner.top-left {
+    top: 15px;
+    left: 15px;
+}
+
+.card-corner.top-right {
+    top: 15px;
+    right: 15px;
+}
+
+.card-corner.bottom-left {
+    bottom: 15px;
+    left: 15px;
+}
+
+.card-corner.bottom-right {
+    bottom: 15px;
+    right: 15px;
+}
+
+.love-card-title {
+    font-size: 2em;
+    color: #ff4757;
+    text-align: center;
+    margin: 0 0 30px 0;
+    font-family: 'Dancing Script', cursive;
+    line-height: 1.4;
+    animation: fadeIn 1s ease-out;
+}
+
+.card-divider {
+    text-align: center;
+    margin: 30px 0;
+    position: relative;
+}
+
+.card-divider::before,
+.card-divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 35%;
+    height: 2px;
+    background: linear-gradient(to right, transparent, #ff8787, transparent);
+}
+
+.card-divider::before {
+    left: 0;
+}
+
+.card-divider::after {
+    right: 0;
+}
+
+.card-divider span {
+    font-size: 1.5em;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.love-counter {
+    font-size: 5em;
+    font-weight: bold;
+    color: #ff4757;
+    text-align: center;
+    text-shadow: 2px 2px 8px rgba(255, 71, 87, 0.3);
+    animation: countUp 3s ease-out forwards, shimmer 3s ease-in-out infinite;
+    margin: 30px 0 20px 0;
+}
+
+.infinity-symbol {
+    font-size: 5em;
+    color: #ff6b6b;
+    text-align: center;
+    display: block;
+    margin: 20px 0;
+    animation: rotate 4s linear infinite, glow 2s ease-in-out infinite;
+}
+
+.hearts-container {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.floating-heart {
+    position: absolute;
+    font-size: 2em;
+    animation: floatUpHeart 4s ease-out forwards;
+    opacity: 0;
+}
+
+@keyframes countUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes glow {
+
+    0%,
+    100% {
+        filter: drop-shadow(0 0 10px rgba(255, 107, 107, 0.5));
+    }
+
+    50% {
+        filter: drop-shadow(0 0 30px rgba(255, 107, 107, 0.8));
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        text-shadow: 2px 2px 8px rgba(255, 71, 87, 0.3);
+    }
+
+    50% {
+        text-shadow: 2px 2px 15px rgba(255, 215, 0, 0.6), 0 0 20px rgba(255, 107, 107, 0.4);
+    }
+
+    100% {
+        text-shadow: 2px 2px 8px rgba(255, 71, 87, 0.3);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes floatUpHeart {
+    0% {
+        opacity: 0;
+        transform: translateY(0) translateX(0) scale(0);
+    }
+
+    10% {
+        opacity: 1;
+        transform: translateY(-50px) translateX(0) scale(1);
+    }
+
+    90% {
+        opacity: 1;
+        transform: translateY(-80vh) translateX(var(--heart-drift)) scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-100vh) translateX(var(--heart-drift)) scale(0.5);
+    }
+}
+
+/* Valentine's Coupon Styles */
+.coupon-container {
+    max-width: 500px;
+    margin: 30px auto;
+    animation: fadeInUp 1s ease-out;
+}
+
+.coupon-border {
+    background: linear-gradient(135deg, #fff0f5, #ffe4e9);
+    border: 3px dashed #ff6b6b;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.coupon-border::before {
+    content: '❤️';
+    position: absolute;
+    font-size: 100px;
+    opacity: 0.1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-15deg);
+}
+
+.coupon-header {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #ff4757;
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #ff8787;
+}
+
+.coupon-body {
+    position: relative;
+    z-index: 1;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 15px 0;
+}
+
+.coupon-intro {
+    font-size: 1.1em;
+    color: #333;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.coupon-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.coupon-list li {
+    padding: 10px;
+    margin: 10px 0;
+    background: #fff5f7;
+    border-left: 4px solid #ff6b6b;
+    border-radius: 5px;
+    color: #333;
+}
+
+.coupon-list li::before {
+    content: '✓ ';
+    color: #ff6b6b;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.coupon-redeem {
+    background: #fff0f5;
+    border: 2px solid #ff8787;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.redeem-title {
+    font-size: 1.1em;
+    color: #ff4757;
+    margin-bottom: 8px;
+}
+
+.coupon-redeem p:last-child {
+    color: #666;
+    margin: 0;
+}
+
+.coupon-valid {
+    text-align: center;
+    font-style: italic;
+    color: #ff4757;
+    font-size: 1.05em;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px dashed #ff8787;
+}
+
+.coupon-footer {
+    text-align: center;
+    color: #ff6b6b;
+    font-weight: bold;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 2px solid #ff8787;
+    font-size: 1.1em;
+}
+
+/* Mobile responsiveness for coupon */
+@media (max-width: 600px) {
+    .coupon-container {
+        max-width: 90%;
+        margin: 20px auto;
+    }
+
+    .coupon-border {
+        padding: 20px 15px;
+    }
+
+    .coupon-header {
+        font-size: 1.2em;
+    }
+}
+
+/* Popup Sticker Styles */
+.popup-sticker {
+    position: fixed;
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    z-index: 9999;
+    pointer-events: none;
+    animation: stickerPopup 2s ease-out forwards;
+}
+
+@keyframes stickerPopup {
+    0% {
+        opacity: 0;
+        transform: scale(0) rotate(0deg);
+    }
+
+    20% {
+        opacity: 1;
+        transform: scale(1.2) rotate(10deg);
+    }
+
+    40% {
+        transform: scale(1) rotate(-5deg);
+    }
+
+    60% {
+        transform: scale(1.1) rotate(5deg);
+    }
+
+    80% {
+        transform: scale(1) rotate(0deg);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(0.8) rotate(0deg);
+    }
+}
+
+/* Polaroid Card Styles */
+.polaroid-card {
+    max-width: 450px;
+    margin: 40px auto;
+    background: white;
+    padding: 20px 20px 15px 20px;
+    border-radius: 3px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3),
+        0 5px 15px rgba(0, 0, 0, 0.2);
+    transform: rotate(-2deg);
+    animation: fadeInUp 1s ease-out;
+    transition: transform 0.3s ease;
+}
+
+.polaroid-card:hover {
+    transform: rotate(0deg) scale(1.02);
+}
+
+.polaroid-photo {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: #f5f5f5;
+}
+
+.polaroid-image {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center top;
+}
+
+.polaroid-caption {
+    padding: 20px 10px 10px 10px;
+    text-align: center;
+    min-height: 80px;
+}
+
+.polaroid-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.3em;
+    color: #333;
+    margin: 5px 0;
+    line-height: 1.4;
+}
+
+/* Polaroid Button Stickers */
+.polaroid-btn {
+    position: absolute;
+    font-weight: bold;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+.yes-sticker {
+    bottom: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #ff6b6b, #ff8787);
+    color: white;
+    padding: 12px 24px;
+    font-size: 1.1em;
+}
+
+.yes-sticker:hover {
+    transform: scale(1.1) rotate(3deg);
+    box-shadow: 0 6px 15px rgba(255, 107, 107, 0.4);
+}
+
+.no-sticker {
+    bottom: 20px;
+    left: 20px;
+    background: #e0e0e0;
+    color: #666;
+    padding: 10px 20px;
+    font-size: 1em;
+}
+
+.no-sticker:hover {
+    background: #d0d0d0;
+}
+
+/* Mobile adjustments for Polaroid */
+@media (max-width: 600px) {
+    .polaroid-card {
+        max-width: 90%;
+        margin: 20px auto;
+    }
+
+    .polaroid-text {
+        font-size: 1.1em;
+    }
+
+    .yes-sticker {
+        padding: 10px 20px;
+        font-size: 1em;
+    }
+
+    .no-sticker {
+        padding: 8px 16px;
+        font-size: 0.9em;
+    }
+}
