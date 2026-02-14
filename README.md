@@ -1,207 +1,200 @@
-# 💝 Valentine's Day Website 2026 💝
+# 💝 Valentine's Day Interactive Website
 
-[![Stars](https://img.shields.io/github/stars/End2EndAI/valentine-website-2025?style=social)](https://github.com/End2EndAI/valentine-website-2025/stargazers)
-[![Fork](https://img.shields.io/github/forks/End2EndAI/valentine-website-2025?style=social)](https://github.com/End2EndAI/valentine-website-2025/fork)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Support me](https://img.shields.io/badge/Support-Stripe-blue)](https://buy.stripe.com/bJefZa8Le7fvgDe3ric7u00)
-
-A beautiful, interactive Valentine's Day website generator to ask your special someone to be your Valentine! Create your own personalized version in minutes. Perfect for Valentine's Day 2026! 💝
-Follow below the tutorial how to custom the website and get your custom URL and access your website on the internet from everywhere !
-
-🌟 **[Live Demo](https://end2endai.github.io/valentine-website-2025)** | 🚀 **[Quick Start](#-quick-start-guide)** | 🌐 **[Deploy Your Website](#4-make-it-live-get-your-online-website-url)**
-
-## 🌟 Share The Love
-
-If you liked it, please :
-- ⭐ Star this repository if you like it
-- 🔄 Fork it to create your own version
-- 🔥 Like and follow on instagram for more websites : [Instagram](https://www.instagram.com/reel/DFh3ZaxtrYX/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==)
+A beautiful, interactive Valentine's Day website with a unique Polaroid-style design, animated love displays, and personalized experiences. Perfect for creating an unforgettable romantic surprise!
 
 ## ✨ Features
-- 💖 Floating hearts and bears
-- 🎵 Custom music
-- 📏 Love meter that goes beyond 100%
-- 🏃‍♂️ Playful buttons that run away
-- 🎁 Hidden answer for the first question, "Do you like me?"
-- 🎉 Grand celebration when they say yes!
 
-## 🚀 Quick Start Guide
+### 🎬 Welcome Screen
+- Full-screen photo slideshow with your personal couple photos
+- Animated "For [Name] 💝" title with heartbeat effect
+- Smooth transition to main content with background music
 
-### 1. Get Your Own Copy
-1. Click the "Fork" button at the top right of this page or [click here](https://github.com/End2EndAI/valentine-website-2025/fork)
-2. Wait a few seconds while GitHub creates your copy
-3. You now have your own version of the code!
+### ❤️ Interactive Questions
+- **First Question**: Personalized message with hidden secret answer reveal
+- **Love Display**: Premium greeting card showing infinite love counter (9,999,999+) with continuous floating hearts
+- **Love Meter**: Interactive slider with special messages at milestone values
+- **Final Question**: Polaroid instant photo design with your couple photo
 
-Note: Make sure you're logged into your GitHub account. If you don't have one, you can [create a free account here](https://github.com/signup).
+### 📸 Polaroid Photo Card
+- Authentic Polaroid instant camera aesthetic
+- Features your couple photo centered in the frame
+- Handwritten-style text on the classic white bottom strip
+- Sticker-style buttons with playful interactions
+- Subtle tilt effect for realistic appearance
 
-### 2. Customize for Your Valentine
+### 🎁 Celebration Screen
+- Beautiful redeemable coupon design
+- Screenshot-friendly format
+- Custom redemption instructions
 
-#### Easy Way (Recommended)
-1. In your new repository, click on `config.js`
-2. Click the pencil icon (✏️) to edit
-3. Change the values to personalize your website
-4. Click "Commit changes" at the bottom
+### 🎵 Background Music
+- Auto-play background music (browser permitting)
+- Volume controls
+- Customizable music URL via Cloudinary
 
-Here's what you can customize in `config.js`:
+### 📱 Mobile Optimized
+- Fully responsive design
+- Tested on iPhone XR and various screen sizes
+- Auto-scroll functionality for better mobile UX
+- Touch-optimized interactions
+
+## 🚀 Live Demo
+
+Visit: `https://franz-james-kaba.github.io/med_exam_1023454/`
+
+## 🛠️ Technology Stack
+
+- **HTML5** - Structure
+- **CSS3** - Styling with animations and gradients
+- **Vanilla JavaScript** - Interactive functionality
+- **Google Fonts** (Dancing Script) - Handwritten typography
+- **Cloudinary** - Music hosting
+
+## 📁 Project Structure
+
+```
+med.exam.questions 2025/
+├── index.html          # Main HTML structure
+├── styles.css          # All styling and animations
+├── script.js           # Interactive functionality
+├── config.js           # Customization settings
+├── images/             # Personal photos and assets
+│   ├── hum.jpg        # Polaroid photo
+│   ├── cheching.jpg   # Popup sticker
+│   └── photo_*.jpg    # Slideshow images
+└── README.md          # This file
+```
+
+## 🎨 Customization
+
+All customization is done through `config.js`:
+
+### Basic Settings
 ```javascript
-// Basic Information
-valentineName: "Jade"                    // Your Valentine's name
-pageTitle: "Will You Be My Valentine? 💝" // Browser tab title
+valentineName: "Your Love's Name"
+pageTitle: "Custom Browser Tab Title"
+```
 
-// Floating Background Elements
-floatingEmojis: {
-    hearts: ['❤️', '💖', '💝', '💗', '💓'],  // Heart emojis in background
-    bears: ['🧸', '🐻']                       // Bear emojis in background
-}
-
-// Questions and Buttons
+### Questions & Answers
+```javascript
 questions: {
     first: {
-        text: "Do you like me?",                   // First question
-        yesBtn: "Yes",                             // Yes button text
-        noBtn: "No",                               // No button text
-        secretAnswer: "I don't like you, I love you! ❤️"  // Hidden message
-    },
-    second: {
-        text: "How much do you love me?",          // Second question
-        startText: "This much!",                   // Text before percentage
-        nextBtn: "Next ❤️"                         // Next button text
-    },
-    third: {
-        text: "Will you be my Valentine...?",      // Final question
-        yesBtn: "Yes!",                            // Yes button text
-        noBtn: "No"                                // No button text
+        text: "Your first question...",
+        yesBtn: "Yes text",
+        noBtn: "No text",
+        secretAnswer: "Hidden message"
     }
-}
-
-// Love Meter Messages
-loveMessages: {
-    extreme: "WOOOOW You love me that much?? 🥰🚀💝",  // Shows above 5000%
-    high: "To infinity and beyond! 🚀💝",              // Shows above 1000%
-    normal: "And beyond! 🥰"                           // Shows above 100%
-}
-
-// Final Celebration
-celebration: {
-    title: "Yay! I'm the luckiest person...",     // Celebration title
-    message: "Now come get your gift...",          // Celebration message
-    emojis: "🎁💖🤗💝💋❤️💕"                        // Celebration emojis
-}
-
-// Website Colors
-colors: {
-    backgroundStart: "#ffafbd",      // Background gradient start
-    backgroundEnd: "#ffc3a0",        // Background gradient end
-    buttonBackground: "#ff6b6b",     // Button color
-    buttonHover: "#ff8787",          // Button hover color
-    textColor: "#ff4757"            // Text color
-}
-
-// Animation Settings
-animations: {
-    floatDuration: "15s",           // How long hearts float (10-20s)
-    floatDistance: "50px",          // Sideways movement (30-70px)
-    bounceSpeed: "0.5s",            // Bounce animation speed (0.3-0.7s)
-    heartExplosionSize: 1.5         // Final heart explosion size (1.2-2.0)
-}
-
-// Music Settings
-music: {
-    enabled: true, // Music feature is enabled
-    autoplay: true, // Try to autoplay (note: some browsers may block this)
-    musicUrl: "YOUR_CLOUDINARY_URL_HERE", // Paste your music URL here
-    startText: "🎵 Play Music", // Button text to start music
-    stopText: "🔇 Stop Music", // Button text to stop music
-    volume: 0.5 // Volume level (0.0 to 1.0)
+    // ... more questions
 }
 ```
 
-### 3. Adding Your Own Background Music 🎵
+### Colors & Animations
+```javascript
+colors: {
+    backgroundStart: "#ffafbd",
+    backgroundEnd: "#ffc3a0",
+    buttonBackground: "#ff6b6b"
+}
+```
 
-Want to make it extra special with your own romantic song? Follow these steps to add background music:
-
-1. **Get a Cloudinary Account (Free):**
-   - Go to [Cloudinary.com](https://cloudinary.com) and sign up for a free account
-
-2. **Upload Your Music:**
-   - Log in to your Cloudinary dashboard
-   - Click on the "Upload" button in the top right
-   - Select "Upload" from the dropdown menu
-   - Choose your MP3 file (keep it under 10MB for better loading)
-   - Wait for the upload to complete
-
-3. **Get Your Music URL:**
-   - After upload, find your music file in the Media Library
-   - Click the "..." (more options) button on your music file
-   - Click "Copy URL"
-   - Select "Copy Original URL with options"
-   - The URL should look like: `https://res.cloudinary.com/your-cloud-name/video/upload/v1234567890/your-file-name.mp3`
-
-4. **Add to Your Website:**
-   - Open `config.js`
-   - Find the `music` section
-   - Replace the `musicUrl` value with your Cloudinary URL
-
+### Music Settings
 ```javascript
 music: {
     enabled: true,
     autoplay: true,
-    musicUrl: "YOUR_CLOUDINARY_URL_HERE", // Paste your URL here
-    startText: "🎵 Play Music",
-    stopText: "🔇 Stop Music",
-    volume: 0.5
+    volume: 0.5,
+    musicUrl: "your-cloudinary-url"
 }
 ```
 
-### 4. Make It Live! (Get your online website URL)
+## 📸 Adding Your Photos
 
-#### Using GitHub Pages (Free)
-1. Go to your repository's "Settings"
-2. Click "Pages" in the left sidebar
-3. Under "Source", select "main" branch
-4. Click "Save"
-5. Wait a few minutes
-6. Your site will be live at: `https://your-username.github.io/repository-name`
+1. Place your photos in the `images/` folder
+2. Update `index.html` slideshow section:
+```html
+<div class="slideshow-image" style="background-image: url('images/your-photo.jpg')"></div>
+```
+3. Update Polaroid photo in final question section
 
-#### Using Netlify (Free, Recommended, Custom URL)
-1. Go to [Netlify](https://www.netlify.com/)
-2. Sign up for a free account
-3. Click "Add new site" → "Import an existing project"
-4. Choose your GitHub repository
-5. Click "Deploy site"
-6. Once deployed, click "Domain settings"
-7. Choose a custom domain (e.g., `my-valentine-2025.netlify.app`)
+## 🌐 Deployment
+
+### GitHub Pages (Recommended)
+
+1. **Push to GitHub:**
+```bash
+git init
+git add .
+git commit -m "Initial commit"
+git branch -M main
+git remote add origin https://github.com/YOUR-USERNAME/YOUR-REPO.git
+git push -u origin main
+```
+
+2. **Enable GitHub Pages:**
+   - Go to repository Settings
+   - Navigate to Pages (sidebar)
+   - Source: Select `main` branch, `/ (root)` folder
+   - Save and wait ~2 minutes
+
+3. **Your site will be live at:**
+   `https://YOUR-USERNAME.github.io/YOUR-REPO/`
+
+### Alternative: Netlify
+
+1. Drag and drop the project folder to [Netlify](https://www.netlify.com/)
+2. Customize site name in settings
+3. Deploy!
+
+## 🎯 Key Features Explained
+
+### Love Display Card
+- Premium greeting card aesthetic with gold gradient border
+- Rose decorations in all four corners
+- Animated counter with shimmer effect
+- Continuous hearts explosion animation
+
+### Polaroid Final Question
+- Authentic instant photo styling
+- Your couple photo as background
+- Handwritten-style question text
+- Interactive sticker buttons
+- "No" button playfully moves within frame
+- Popup sticker on "No" click
+
+### Coupon System
+- Professional coupon design
+- Screenshot-friendly layout
+- Custom redemption message
+- Mobile-responsive
+
+## 🔧 Browser Compatibility
+
+- ✅ Chrome/Edge (latest)
+- ✅ Firefox (latest)
+- ✅ Safari (latest)
+- ✅ Mobile browsers (iOS/Android)
+
+**Note:** Music autoplay may be blocked by some browsers until user interaction.
+
+## 📝 License
+
+This project is open source and available for personal use. Feel free to customize and use for your own romantic surprises!
 
 ## 💡 Tips
-- Test the website before sending it to your Valentine
-- Try all the buttons and interactions
-- Check how it looks on mobile phones
 
-## 🎨 Want Different Colors?
-Use these tools to find beautiful colors:
-- [Coolors](https://coolors.co/) - Color palette generator
-- [ColorHunt](https://colorhunt.co/) - Color palettes
+1. **Test on mobile** before sharing - use browser dev tools or actual device
+2. **Music autoplay** - Some browsers block autoplay; the site provides a play button fallback
+3. **Photo optimization** - Compress images for faster loading
+4. **Disguise URL** - Use repository names like "medical-exam" for surprise factor! 😄
 
-## 🔍 Need More Emojis?
-Find more emojis at:
-- [EmojiKeyboard](https://emojikeyboard.top/fr/)
-- [Emojipedia](https://emojipedia.org/)
+## 🤝 Contributing
 
-## 💖 Credits
-Created with love for Valentine's Day 2026.
-Feel free to use and modify for your special someone!
+Feel free to fork this project and create your own romantic experiences!
 
-\- Louis Fontaine -
+## ❤️ Made with Love
 
-## ❤️ Support this project
+Created for unforgettable Valentine's Day moments! 💝
 
-This Valentine website template is completely **free and open-source**.
+---
 
-If it helped you create something special, you can support the project with a small donation:
-
-👉 [Tip](https://buy.stripe.com/bJefZa8Le7fvgDe3ric7u00)
-
-Thank you for keeping it alive!
-
-## 📜 License
-MIT License - Feel free to use this for your Valentine! 
+**Enjoy creating magical moments! 🎉**
